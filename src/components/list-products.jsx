@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import getProductsApi from "../services/product-service.jsx";
-
+import {getProductsApi} from "../services/product-service.jsx";
+import '../App.css';
 
 export function ListProducts(props) {
 
@@ -16,13 +16,18 @@ export function ListProducts(props) {
         })
     }
 
+    const addProduct = () => {
+        props.history.push('/addProduct')
+    }
+
     useEffect(() => {
         getProducts()
     }, []);
 
     return <div>
         <div>
-            <h1>List of Products</h1>
+            <h1 className='text-center'>List of Products</h1>
+            <button className='btn btn-success' onClick={addProduct}>Add Product</button>
             <table className="table table-striped table-dark">
                 <thead>
                 <tr>
