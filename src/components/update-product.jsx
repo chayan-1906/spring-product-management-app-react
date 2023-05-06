@@ -1,14 +1,25 @@
-import {useState} from "react";
-import {addProductApi} from "../services/product-service.jsx";
-import {useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getProductByIdApi, updateProductApi} from "../services/product-service.jsx";
+import {useHistory, useParams} from "react-router-dom";
 
-export function AddProduct() {
+export function UpdateProduct() {
+    // const [product, setProduct] = useState({});
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [quantity, setQuantity] = useState('');
-    // const [product, setProduct] = useState({});
+    const params = useParams()
 
     let history = useHistory();
+
+    useEffect(() => {
+        getProductByIdApi(params.id).then(response => {
+            const apiResponse = response.data
+            console.log(apiResponse)
+            setName(apiResponse.name || '')
+            setPrice(apiResponse.price)
+            setQuantity(apiResponse.quantity)
+        })
+    }, [])
 
     const handleName = (value) => {
         setName(value)
@@ -25,25 +36,27 @@ export function AddProduct() {
         // console.log(value)
     }
 
-    const save = (e) => {
+    const update = (e) => {
         let product = {name: name, price: price, quantity: quantity}
         // console.log(id)
         // console.log(name)
         // console.log(price)
         // console.log(quantity)
-        addProduct(product)
+        console.log('product: ' + product)
+        e.preventDefault()
+        updateProduct(params.id, product)
         console.log(product)
     }
 
-    const addProduct = (product) => {
-        addProductApi(product).then(response => {
+    const updateProduct = (id, product) => {
+        updateProductApi(id, product).then(response => {
             const apiResponse = response.data
             console.log('15: ' + apiResponse)
         })
     }
 
     return <div className='container'>
-        <h1>Add Product</h1>
+        <h1>Update Product</h1>
         <div className='row'>
             <div className='text-center'>
                 <div className="card">
@@ -81,7 +94,7 @@ export function AddProduct() {
                                 <br/>
                             </div>
 
-                            <button type="submit" className="btn btn-success" onClick={(e) => save(e)}>Save</button>
+                            <button type="submit" className="btn btn-success" onClick={(e) => update(e)}>Update</button>
                             <button className='btn btn-danger' onClick={() => history.goBack()}>Cancel</button>
                         </form>
                     </div>

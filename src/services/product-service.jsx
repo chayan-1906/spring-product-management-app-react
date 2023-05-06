@@ -15,4 +15,15 @@ export async function addProductApi(product) {
     return response
 }
 
-// export default new ProductService()
+export async function getProductByIdApi(productId) {
+    const response = await axios.get(BASE_API + "/getProduct?id=" + productId)
+    console.log('getProductByIdApi: ' + response.data)
+    return response
+}
+
+export async function updateProductApi(productId, product) {
+    console.log('updateProductApi: ' + product)
+    const response = await axios.put(BASE_API + '/updateProduct?id=' + productId, product)
+    console.log('updateProductApi: ' + response.data)
+    return response
+}
