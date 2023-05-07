@@ -1,4 +1,4 @@
-## Product Management App
+## Product Management Fullstack App
 #### Live Demo: https://product-management-fullstack.netlify.app/
 #### Backend app: https://github.com/chayan-1906/spring-product-management-app-java
 
