@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
-import {getProductsApi} from "../services/product-service.jsx";
+import {deleteProductApi, getProductsApi} from "../services/product-service.jsx";
 import '../App.css';
+import {Link} from "react-router-dom";
 
 export function ListProducts(props) {
 
@@ -16,6 +17,14 @@ export function ListProducts(props) {
         })
     }
 
+    const deleteProductById = (id) => {
+        deleteProductApi(id).then(response => {
+            const apiResponse = response.data
+            setProducts(products.filter(product => id !== product.id))
+        })
+    }
+
+
     const addProduct = () => {
         props.history.push('/addProduct')
     }
@@ -27,7 +36,10 @@ export function ListProducts(props) {
     return <div>
         <div>
             <h1 className='text-center'>List of Products</h1>
-            <button className='btn btn-success' onClick={addProduct}>Add Product</button>
+            <button className='btn btn-success text-center'
+                    onClick={addProduct}
+                    style={{margin: '20px 0px 30px 0px'}}>Add Product
+            </button>
             <table className="table table-striped table-dark">
                 <thead>
                 <tr>
@@ -35,17 +47,36 @@ export function ListProducts(props) {
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                    {products.map(product => {
-                        return <tr key={product.id}>
-                            <td>{product.id}</td>
-                            <td>{product.name}</td>
-                            <td>{product.price}</td>
-                            <td>{product.quantity}</td>
-                        </tr>
-                    })}
+                {products.map(product => {
+                    return <tr key={product.id}>
+                        <td>{product.id}</td>
+                        <td>{product.name}</td>
+                        <td>{product.price}</td>
+                        <td>{product.quantity}</td>
+                        {/* view */}
+                        <td>
+                            {/*<button className='btn btn-info' onClick={() => viewProductById(product.id)}>View</button>*/}
+                            <Link to={{pathname: `/viewProduct/${product.id}`,}} className='btn btn-info'>View</Link>
+                        </td>
+                        {/* update */}
+                        <td>
+                            {/*<button className='btn btn-info' onClick={() => viewProductById(product.id)}>View</button>*/}
+                            <Link to={{pathname: `/updateProduct/${product.id}`,}}
+                                  className='btn btn-light'>Update</Link>
+                        </td>
+                        {/* delete */}
+                        <td>
+                            <button className='btn btn-danger' onClick={() => deleteProductById(product.id)}>Delete
+                            </button>
+                        </td>
+                    </tr>
+                })}
                 </tbody>
             </table>
         </div>

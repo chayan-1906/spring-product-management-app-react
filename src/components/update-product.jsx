@@ -42,10 +42,9 @@ export function UpdateProduct() {
         // console.log(name)
         // console.log(price)
         // console.log(quantity)
-        console.log('product: ' + product)
-        e.preventDefault()
         updateProduct(params.id, product)
         console.log(product)
+        navigateBackToPrevScreen(e)
     }
 
     const updateProduct = (id, product) => {
@@ -55,8 +54,13 @@ export function UpdateProduct() {
         })
     }
 
+    const navigateBackToPrevScreen = (e) => {
+        e.preventDefault()
+        history.goBack()
+    }
+
     return <div className='container'>
-        <h1>Update Product</h1>
+        <h1 style={{textAlign: 'center'}}>Update Product</h1>
         <div className='row'>
             <div className='text-center'>
                 <div className="card">
@@ -94,8 +98,15 @@ export function UpdateProduct() {
                                 <br/>
                             </div>
 
-                            <button type="submit" className="btn btn-success" onClick={(e) => update(e)}>Update</button>
-                            <button className='btn btn-danger' onClick={() => history.goBack()}>Cancel</button>
+                            <button type="submit"
+                                    className="btn btn-success"
+                                    onClick={(e) => update(e)}
+                                    style={{margin: '0px 25px 0px 0px'}}>Update
+                            </button>
+                            <button className='btn btn-danger'
+                                    onClick={navigateBackToPrevScreen}
+                                    style={{margin: '0px 0px 0px 25px'}}>Cancel
+                            </button>
                         </form>
                     </div>
                 </div>

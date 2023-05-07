@@ -27,3 +27,10 @@ export async function updateProductApi(productId, product) {
     console.log('updateProductApi: ' + response.data)
     return response
 }
+
+export async function deleteProductApi(productId) {
+    console.log('deleteProductApi: ' + productId)
+    const response = await axios.delete(BASE_API + '/deleteProduct?id=' + productId)
+    console.log('deleteProductApi: ' + response.data)
+    return response
+}

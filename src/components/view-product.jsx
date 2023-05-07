@@ -16,7 +16,7 @@ export const ViewProduct = () => {
     }, [])
 
     return <div className='container'>
-        <h1>View Product Page</h1>
+        <h1 style={{textAlign: 'center'}}>View Product</h1>
         <div className='card'>
             <div className='card-body'>
                 <div className='row'>
@@ -33,6 +33,9 @@ export const ViewProduct = () => {
                 </div>
             </div>
         </div>
-        <button className='btn btn-danger' onClick={() => history.goBack()}>Cancel</button>
+        <button className='btn btn-danger'
+                onClick={() => history.goBack()}
+                style={{margin: '20px 0px 30px 0px'}}>Cancel
+        </button>
     </div>
 }

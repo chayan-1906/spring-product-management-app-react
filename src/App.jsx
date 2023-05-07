@@ -20,7 +20,7 @@ export default function App() {
                     <div className="container">
                         <Route exact path='/' component={ListProducts}/>
                         <Route exact path='/productsList' component={ListProducts}/>
-                        <Route exact path='/addProduct' component={AddProduct}/>
+                        <Route exact path='/addProduct/' component={AddProduct}/>
                         <Route exact path='/viewProduct/:id' component={ViewProduct}/>
                         <Route exact path='/updateProduct/:id' component={UpdateProduct}/>
                     </div>

@@ -27,12 +27,9 @@ export function AddProduct() {
 
     const save = (e) => {
         let product = {name: name, price: price, quantity: quantity}
-        // console.log(id)
-        // console.log(name)
-        // console.log(price)
-        // console.log(quantity)
         addProduct(product)
         console.log(product)
+        navigateBackToPrevScreen(e)
     }
 
     const addProduct = (product) => {
@@ -42,8 +39,13 @@ export function AddProduct() {
         })
     }
 
+    const navigateBackToPrevScreen = (e) => {
+        e.preventDefault()
+        history.goBack()
+    }
+
     return <div className='container'>
-        <h1>Add Product</h1>
+        <h1 style={{textAlign: 'center'}}>Add Product</h1>
         <div className='row'>
             <div className='text-center'>
                 <div className="card">
@@ -81,8 +83,14 @@ export function AddProduct() {
                                 <br/>
                             </div>
 
-                            <button type="submit" className="btn btn-success" onClick={(e) => save(e)}>Save</button>
-                            <button className='btn btn-danger' onClick={() => history.goBack()}>Cancel</button>
+                            <button type="submit"
+                                    className="btn btn-success" onClick={(e) => save(e)}
+                                    style={{margin: '0px 25px 0px 0px'}}>Save
+                            </button>
+                            <button className='btn btn-danger'
+                                    onClick={navigateBackToPrevScreen}
+                                    style={{margin: '0px 0px 0px 25px'}}>Cancel
+                            </button>
                         </form>
                     </div>
                 </div>
